@@ -1,7 +1,12 @@
 # basic-test-bazel
 
+This exercise is about Bazel Build and C/C++ language.
+
 **Exercise:** fix file *BUILD.bazel* in order to allow it to compile *test.cpp* into binary *app_test*.
 
+To practice, use the following invitation link:  https://classroom.github.com/a/4cxjjKP7
+
+More information: https://medium.com/@igormcoelho/configuring-bazel-build-with-gnu-c-c-on-windows-e27b2c66bed6
 
 ## Configuration on github actions / classroom
 
