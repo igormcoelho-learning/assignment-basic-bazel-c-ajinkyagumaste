@@ -1,0 +1,33 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Run Bazel
+      id: run-bazel
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Run Bazel
+        setup-command: npm install @bazel/bazelisk
+        command: export XDG_CACHE_HOME=. && ./node_modules/.bin/bazel build ... &&
+          ./node_modules/.bin/bazel run //:app_test
+        input: ''
+        expected-output: Bazel Test
+        comparison-method: contains
+        timeout: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        RUN-BAZEL_RESULTS: "${{steps.run-bazel.outputs.result}}"
+      with:
+        runners: run-bazel
